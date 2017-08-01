@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/Users/mariapb/Documents/JulioFolder/SensorTileKit/BlueSTSDK/build/intermediates/res/merged/release/layout-v21/notification_action_tombstone.xml",
+        "source": "/Users/mariapb/.android/build-cache/7bb2df4d9db87389f231142658d92d0c81c7e30a/output/res/layout-v21/notification_action_tombstone.xml"
+    },
+    {
+        "merged": "/Users/mariapb/Documents/JulioFolder/SensorTileKit/BlueSTSDK/build/intermediates/res/merged/release/layout-v21/notification_action.xml",
+        "source": "/Users/mariapb/.android/build-cache/7bb2df4d9db87389f231142658d92d0c81c7e30a/output/res/layout-v21/notification_action.xml"
+    },
+    {
+        "merged": "/Users/mariapb/Documents/JulioFolder/SensorTileKit/BlueSTSDK/build/intermediates/res/merged/release/layout-v21/notification_template_custom_big.xml",
+        "source": "/Users/mariapb/.android/build-cache/7bb2df4d9db87389f231142658d92d0c81c7e30a/output/res/layout-v21/notification_template_custom_big.xml"
+    },
+    {
+        "merged": "/Users/mariapb/Documents/JulioFolder/SensorTileKit/BlueSTSDK/build/intermediates/res/merged/release/layout-v21/notification_template_icon_group.xml",
+        "source": "/Users/mariapb/.android/build-cache/7bb2df4d9db87389f231142658d92d0c81c7e30a/output/res/layout-v21/notification_template_icon_group.xml"
+    }
+]
