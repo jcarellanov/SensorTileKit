@@ -26,7 +26,10 @@
  ******************************************************************************/
 package julioarellano.sensortilekit;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -207,11 +210,26 @@ public class ScanActivity extends NodeScanActivity implements AbsListView.OnItem
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Node n = mAdapter.getItem(position);
-        if(n==null)
+        if (n == null)
             return;
 
-        Intent i = FeatureListActivity.getStartIntent(this, n);
-        startActivity(i);
+       /* Intent j = new Intent(ScanActivity.this, MainActivity.class);
+        j.putExtra("node",n);
+        startActivity(j);*/
+        String tag = n.getTag();
+
+        SharedPreferences sharedPreferences = this.getSharedPreferences(this.getResources().getString(R.string.app_name),
+                Context.MODE_PRIVATE);
+        Editor editor = sharedPreferences.edit();
+        editor.putString(AppConstants.nodeTag, tag);
+        editor.commit();
+
+        Intent j = new Intent(ScanActivity.this, MainActivity.class);
+        startActivity(j);
+
+
+        /*Intent i = FeatureListActivity.getStartIntent(this, n);
+        startActivity(i);*/
     }//onItemClick
 
 }//ScanActivity

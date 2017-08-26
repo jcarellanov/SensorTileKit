@@ -74,7 +74,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author STMicroelectronics - Central Labs.
  * @version 1.0
  * */
-public class Node{
+public class Node {
     private static final String TAG = Node.class.getCanonicalName();
     /**
      * wait this time before retry to send a command to the ble api

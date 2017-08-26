@@ -32,6 +32,7 @@ import android.support.annotation.WorkerThread;
 
 import com.st.BlueSTSDK.Features.Field;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -50,7 +51,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  * @author STMicroelectronics - Central Labs.
  * @version 1.0
  */
-public abstract class Feature {
+public abstract class Feature implements Serializable{
 
     /**
      * pool of thread used for notify to the listeners that the feature have new data

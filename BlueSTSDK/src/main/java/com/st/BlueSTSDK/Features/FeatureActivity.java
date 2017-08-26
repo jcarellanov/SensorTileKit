@@ -47,7 +47,7 @@ import java.util.Locale;
  * @author STMicroelectronics - Central Labs.
  * @version 1.0
  */
-public class FeatureActivity extends Feature {
+public class FeatureActivity extends Feature{
 
     public static final String FEATURE_NAME = "Activity Recognition";
     public static final String FEATURE_UNIT[] = {null,"ms"};

@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ScanActivity">
+        <activity
+            android:name=".ScanActivity"
+            android:label="Available Devices">
+
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,24 +27,27 @@
             android:parentActivityName=".ScanActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ScanActivity"/>
+                android:value=".ScanActivity" />
         </activity>
+        <activity
+            android:name=".MainActivity"/>
+
         <activity
             android:name=".DebugConsoleActivity"
             android:label="@string/title_activity_debug_console"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".FeatureListActivity">
+            android:parentActivityName=".FeatureListActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".FeatureListActivity"/>
+                android:value=".FeatureListActivity" />
         </activity>
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".DebugConsoleActivity" >
+            android:parentActivityName=".DebugConsoleActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".FeatureListActivity"/>
+                android:value=".FeatureListActivity" />
         </activity>
     </application>
 

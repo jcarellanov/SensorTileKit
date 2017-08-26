@@ -29,6 +29,7 @@ package com.st.BlueSTSDK;
 import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.Context;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresPermission;
@@ -65,7 +66,8 @@ public class Manager {
      * pool of thread used for notify to the listeners that the feature have new data
      */
     private static final ExecutorService sThreadPool = Executors.newCachedThreadPool();
-
+private Context ctx;
+    private static Manager manager;
     /**
      * map the device byte with the featureMask/Class array
      */
@@ -88,7 +90,20 @@ public class Manager {
     /**
      * singleton instance of the manager
      */
-    private static Manager sInstance = new Manager();
+    public static Manager sInstance = new Manager( );
+
+    /*public static Manager getInstance(Context context) {
+        if (manager == null) {
+            manager = new Manager(context);
+        }
+        return manager;
+
+    }
+
+    private Manager(Context context) {
+        ctx = context;
+    }*/
+
     /**
      * handler used for stop the scan process after the timeout expire
      */

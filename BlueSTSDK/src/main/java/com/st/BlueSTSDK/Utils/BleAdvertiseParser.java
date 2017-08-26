@@ -36,7 +36,7 @@ import com.st.BlueSTSDK.Node;
  * @author STMicroelectronics - Central Labs.
  * @version 1.0
  */
-public class BleAdvertiseParser {
+public class BleAdvertiseParser  {
 
     private final static int VENDOR_DATA_TYPE = 0xff;
     private final static int DEVICE_NAME_TYPE = 0x09;

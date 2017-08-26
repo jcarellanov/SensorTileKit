@@ -42,6 +42,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.st.BlueSTSDK.Feature;
+import com.st.BlueSTSDK.Features.Field;
 import com.st.BlueSTSDK.Manager;
 import com.st.BlueSTSDK.Node;
 
@@ -270,6 +271,8 @@ public class FeatureListActivity extends AppCompatActivity implements AdapterVie
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
         Feature selectedFeature = mFeatureListAdapter.getItem(position);
+        Field[] fields = selectedFeature.getFieldsDesc();
+
         if (selectedFeature == null)
             return;
 
