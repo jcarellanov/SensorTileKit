@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".ScanActivity"
-            android:label="Available Devices">
+            android:label="Available Nodes">
 
 
             <intent-filter>
@@ -30,7 +30,8 @@
                 android:value=".ScanActivity" />
         </activity>
         <activity
-            android:name=".MainActivity"/>
+            android:name=".MainActivity"
+            android:label="@string/title_activity_main"/>
 
         <activity
             android:name=".DebugConsoleActivity"

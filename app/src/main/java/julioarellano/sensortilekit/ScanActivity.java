@@ -224,9 +224,12 @@ public class ScanActivity extends NodeScanActivity implements AbsListView.OnItem
         editor.putString(AppConstants.nodeTag, tag);
         editor.commit();
 
-        Intent j = new Intent(ScanActivity.this, MainActivity.class);
+        /*Intent j = new Intent(ScanActivity.this, MainActivity.class);
         startActivity(j);
+*/
 
+        Intent i = MainActivity.getStartIntent(this,n);
+        startActivity(i);
 
         /*Intent i = FeatureListActivity.getStartIntent(this, n);
         startActivity(i);*/
