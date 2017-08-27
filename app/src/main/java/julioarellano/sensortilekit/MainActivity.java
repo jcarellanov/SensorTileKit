@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.TextView;
 
 import com.st.BlueSTSDK.Feature;
@@ -31,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     float temperature = 0;
     long stepsOLD = 0;
     TextView number;
+    TextView tvTemperature;
      Node mNode = null;
     private NodeContainerFragment mNodeContainer;
     private final static String NODE_FRAGMENT = MainActivity.class.getCanonicalName() + "" +
@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         number = (TextView) (findViewById(R.id.stepsNumber));
+        tvTemperature = (TextView) (findViewById(R.id.tvTemperature));
 
 
         final SharedPreferences sharedPreferences = this.getSharedPreferences(this.getResources().getString(R.string.app_name),
@@ -63,10 +64,13 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+
+
         featurePedometer = mNode.getFeature(FeaturePedometer.class);
         featureCompass = mNode.getFeature(FeatureCompass.class);
         //featureHumidity = node.getFeature(FeatureHumidity.class);
         featureTemperature = mNode.getFeature(FeatureTemperature.class);
+        featureAccelerationEvent = mNode.getFeature(FeatureAccelerationEvent.class);
 
         mNode.addNodeStateListener(mNodeStatusListener);
 
@@ -74,20 +78,20 @@ public class MainActivity extends AppCompatActivity {
         //featurePedometer.addFeatureListener(stepListener);
 
 
-        (findViewById(R.id.featureListBtn)).setOnClickListener(new View.OnClickListener() {
+        /*(findViewById(R.id.featureListBtn)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 Intent i = FeatureListActivity.getStartIntent(MainActivity.this, mNode);
                 startActivity(i);
             }
-        });
+        });*/
     }
 
     @Override
     protected void onStop() {
-        //featurePedometer.removeFeatureListener(stepListener);
-        featureTemperature.removeFeatureListener(temperatureListener);
+
+        mNode.removeNodeStateListener(mNodeStatusListener);
         super.onStop();
     }
 
@@ -110,6 +114,27 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    private Feature.FeatureListener AccelerometerSteps = new Feature.FeatureListener() {
+        @Override
+        public void onUpdate(Feature f, Feature.Sample sample) {
+            if(featureAccelerationEvent!=null){
+                steps = featureAccelerationEvent.getPedometerSteps(sample);
+                if(steps != stepsOLD){
+                    stepsOLD = steps;
+                    MainActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            number.setText(String.valueOf(steps));
+                        }
+                    });
+
+
+                }
+            }
+
+        }
+    };
+
     private Feature.FeatureListener temperatureListener = new Feature.FeatureListener() {
         @Override
         public void onUpdate(Feature f, Feature.Sample sample) {
@@ -118,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
                 MainActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        number.setText(String.valueOf(temperature));
+                        tvTemperature.setText(String.valueOf(temperature));
                     }
                 });
             }
@@ -142,6 +167,12 @@ public class MainActivity extends AppCompatActivity {
                         featureTemperature.addFeatureListener(temperatureListener);
                         mNode.enableNotification(featureTemperature);
                         mNode.readFeature(featureTemperature);
+
+                        featureAccelerationEvent.addFeatureListener(AccelerometerSteps);
+                        mNode.enableNotification(featureAccelerationEvent);
+                        mNode.readFeature(featureAccelerationEvent);
+
+
                     }
                 });
 
