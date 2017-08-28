@@ -17,6 +17,8 @@ import com.st.BlueSTSDK.Features.FeatureTemperature;
 import com.st.BlueSTSDK.Manager;
 import com.st.BlueSTSDK.Node;
 
+import static com.st.BlueSTSDK.Features.FeatureAccelerationEvent.DetectableEvent.PEDOMETER;
+import static java.lang.Boolean.TRUE;
 import static julioarellano.sensortilekit.AppConstants.nodeTag;
 import static julioarellano.sensortilekit.NodeContainerFragment.NODE_TAG;
 
@@ -170,7 +172,9 @@ public class MainActivity extends AppCompatActivity {
 
                         featureAccelerationEvent.addFeatureListener(AccelerometerSteps);
                         mNode.enableNotification(featureAccelerationEvent);
+                        featureAccelerationEvent.detectEvent(PEDOMETER,TRUE);
                         mNode.readFeature(featureAccelerationEvent);
+
 
 
                     }
