@@ -13,6 +13,7 @@ import com.st.BlueSTSDK.Features.FeatureAccelerationEvent;
 import com.st.BlueSTSDK.Features.FeatureCompass;
 import com.st.BlueSTSDK.Features.FeatureHumidity;
 import com.st.BlueSTSDK.Features.FeaturePedometer;
+import com.st.BlueSTSDK.Features.FeaturePressure;
 import com.st.BlueSTSDK.Features.FeatureTemperature;
 import com.st.BlueSTSDK.Manager;
 import com.st.BlueSTSDK.Node;
@@ -26,13 +27,16 @@ public class MainActivity extends AppCompatActivity {
     FeaturePedometer featurePedometer;
     FeatureCompass featureCompass;
     FeatureHumidity featureHumidity;
+    FeaturePressure featurePressure;
     FeatureTemperature featureTemperature;
     FeatureAccelerationEvent featureAccelerationEvent;
     long steps = 1;
     float temperature = 0;
+    float pressure;
     long stepsOLD = 0;
     TextView number;
     TextView tvTemperature;
+    TextView tvPressure;
      Node mNode = null;
     private NodeContainerFragment mNodeContainer;
     private final static String NODE_FRAGMENT = MainActivity.class.getCanonicalName() + "" +
@@ -46,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         number = (TextView) (findViewById(R.id.stepsNumber));
         tvTemperature = (TextView) (findViewById(R.id.tvTemperature));
 
-
+tvPressure = (TextView) (findViewById(R.id.tvPressure));
         final SharedPreferences sharedPreferences = this.getSharedPreferences(this.getResources().getString(R.string.app_name),
                 Context.MODE_PRIVATE);
 
@@ -68,11 +72,12 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        featurePedometer = mNode.getFeature(FeaturePedometer.class);
-        featureCompass = mNode.getFeature(FeatureCompass.class);
+        //featurePedometer = mNode.getFeature(FeaturePedometer.class);
+        //featureCompass = mNode.getFeature(FeatureCompass.class);
         //featureHumidity = node.getFeature(FeatureHumidity.class);
         featureTemperature = mNode.getFeature(FeatureTemperature.class);
         featureAccelerationEvent = mNode.getFeature(FeatureAccelerationEvent.class);
+        featurePressure = mNode.getFeature(FeaturePressure.class);
 
         mNode.addNodeStateListener(mNodeStatusListener);
 
@@ -97,13 +102,15 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
     }
 
+
+
     private Feature.FeatureListener stepListener = new Feature.FeatureListener() {
         @Override
         public void onUpdate(Feature f, Feature.Sample sample) {
             if (featurePedometer != null) ;
             steps = featurePedometer.getSteps(sample);
-            if (steps != stepsOLD) {
-                stepsOLD = steps;
+            //if (steps != stepsOLD) {
+               // stepsOLD = steps;
                 MainActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -112,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
                 });
 
 
-            }
+           // }
         }
     };
 
@@ -152,6 +159,25 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    private Feature.FeatureListener pressureListener = new Feature.FeatureListener() {
+        @Override
+        public void onUpdate(Feature f, Feature.Sample sample) {
+            if(featurePressure!= null){
+                pressure = featurePressure.getPressure(sample);
+
+                MainActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        tvPressure.setText(String.valueOf(pressure));
+                    }
+                });
+
+
+
+            }
+        }
+    };
+
     public static Intent getStartIntent(Context c, @NonNull Node node) {
         Intent i = new Intent(c, MainActivity.class);
         i.putExtra(NODE_TAG, node.getTag());
@@ -174,6 +200,10 @@ public class MainActivity extends AppCompatActivity {
                         mNode.enableNotification(featureAccelerationEvent);
                         featureAccelerationEvent.detectEvent(PEDOMETER,TRUE);
                         mNode.readFeature(featureAccelerationEvent);
+
+                        featurePressure.addFeatureListener(pressureListener);
+                        mNode.enableNotification(featurePressure);
+                        mNode.readFeature(featurePressure);
 
 
 

@@ -32,12 +32,12 @@
         "source": "/Users/mariapb/.android/build-cache/7bb2df4d9db87389f231142658d92d0c81c7e30a/output/res/drawable-mdpi-v4/abc_textfield_activated_mtrl_alpha.9.png"
     },
     {
-        "merged": "/Users/mariapb/Documents/JulioFolder/SensorTileKit/BlueSTSDK/build/intermediates/res/merged/release/drawable-mdpi-v4/abc_ic_commit_search_api_mtrl_alpha.png",
-        "source": "/Users/mariapb/.android/build-cache/7bb2df4d9db87389f231142658d92d0c81c7e30a/output/res/drawable-mdpi-v4/abc_ic_commit_search_api_mtrl_alpha.png"
-    },
-    {
         "merged": "/Users/mariapb/Documents/JulioFolder/SensorTileKit/BlueSTSDK/build/intermediates/res/merged/release/drawable-mdpi-v4/abc_ic_star_black_48dp.png",
         "source": "/Users/mariapb/.android/build-cache/7bb2df4d9db87389f231142658d92d0c81c7e30a/output/res/drawable-mdpi-v4/abc_ic_star_black_48dp.png"
+    },
+    {
+        "merged": "/Users/mariapb/Documents/JulioFolder/SensorTileKit/BlueSTSDK/build/intermediates/res/merged/release/drawable-mdpi-v4/abc_ic_commit_search_api_mtrl_alpha.png",
+        "source": "/Users/mariapb/.android/build-cache/7bb2df4d9db87389f231142658d92d0c81c7e30a/output/res/drawable-mdpi-v4/abc_ic_commit_search_api_mtrl_alpha.png"
     },
     {
         "merged": "/Users/mariapb/Documents/JulioFolder/SensorTileKit/BlueSTSDK/build/intermediates/res/merged/release/drawable-mdpi-v4/abc_btn_radio_to_on_mtrl_015.png",
