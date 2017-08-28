@@ -37,7 +37,9 @@ public class MainActivity extends AppCompatActivity {
     TextView number;
     TextView tvTemperature;
     TextView tvPressure;
-     Node mNode = null;
+    Node mNode = null;
+    float[] array = new float[50];
+    int i = 0;
     private NodeContainerFragment mNodeContainer;
     private final static String NODE_FRAGMENT = MainActivity.class.getCanonicalName() + "" +
             ".NODE_FRAGMENT";
@@ -50,12 +52,12 @@ public class MainActivity extends AppCompatActivity {
         number = (TextView) (findViewById(R.id.stepsNumber));
         tvTemperature = (TextView) (findViewById(R.id.tvTemperature));
 
-tvPressure = (TextView) (findViewById(R.id.tvPressure));
+        tvPressure = (TextView) (findViewById(R.id.tvPressure));
         final SharedPreferences sharedPreferences = this.getSharedPreferences(this.getResources().getString(R.string.app_name),
                 Context.MODE_PRIVATE);
 
         String node_tag = sharedPreferences.getString(nodeTag, "");
-      mNode = Manager.getSharedInstance().getNodeWithTag(node_tag);
+        mNode = Manager.getSharedInstance().getNodeWithTag(node_tag);
         if (savedInstanceState == null) {
             Intent i = getIntent();
             mNodeContainer = new NodeContainerFragment();
@@ -69,7 +71,6 @@ tvPressure = (TextView) (findViewById(R.id.tvPressure));
                     .findFragmentByTag(NODE_FRAGMENT);
 
         }
-
 
 
         //featurePedometer = mNode.getFeature(FeaturePedometer.class);
@@ -103,32 +104,31 @@ tvPressure = (TextView) (findViewById(R.id.tvPressure));
     }
 
 
-
     private Feature.FeatureListener stepListener = new Feature.FeatureListener() {
         @Override
         public void onUpdate(Feature f, Feature.Sample sample) {
             if (featurePedometer != null) ;
             steps = featurePedometer.getSteps(sample);
             //if (steps != stepsOLD) {
-               // stepsOLD = steps;
-                MainActivity.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        number.setText(String.valueOf(steps));
-                    }
-                });
+            // stepsOLD = steps;
+            MainActivity.this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    number.setText(String.valueOf(steps));
+                }
+            });
 
 
-           // }
+            // }
         }
     };
 
     private Feature.FeatureListener AccelerometerSteps = new Feature.FeatureListener() {
         @Override
         public void onUpdate(Feature f, Feature.Sample sample) {
-            if(featureAccelerationEvent!=null){
+            if (featureAccelerationEvent != null) {
                 steps = featureAccelerationEvent.getPedometerSteps(sample);
-                if(steps != stepsOLD){
+                if (steps != stepsOLD) {
                     stepsOLD = steps;
                     MainActivity.this.runOnUiThread(new Runnable() {
                         @Override
@@ -149,6 +149,14 @@ tvPressure = (TextView) (findViewById(R.id.tvPressure));
         public void onUpdate(Feature f, Feature.Sample sample) {
             if (featureTemperature != null) {
                 temperature = featureTemperature.getTemperature(sample);
+                if(i<49){
+                    array[i] = pressure;
+                    i++;
+                }
+                if(i==49){
+                    i=0;
+                    return;
+                }
                 MainActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -162,16 +170,16 @@ tvPressure = (TextView) (findViewById(R.id.tvPressure));
     private Feature.FeatureListener pressureListener = new Feature.FeatureListener() {
         @Override
         public void onUpdate(Feature f, Feature.Sample sample) {
-            if(featurePressure!= null){
+            if (featurePressure != null) {
                 pressure = featurePressure.getPressure(sample);
-
-                MainActivity.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        tvPressure.setText(String.valueOf(pressure));
-                    }
-                });
-
+                //if (pressure < 1) {
+                    MainActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            tvPressure.setText(String.valueOf(pressure));
+                        }
+                    });
+               // }
 
 
             }
@@ -198,13 +206,12 @@ tvPressure = (TextView) (findViewById(R.id.tvPressure));
 
                         featureAccelerationEvent.addFeatureListener(AccelerometerSteps);
                         mNode.enableNotification(featureAccelerationEvent);
-                        featureAccelerationEvent.detectEvent(PEDOMETER,TRUE);
+                        featureAccelerationEvent.detectEvent(PEDOMETER, TRUE);
                         mNode.readFeature(featureAccelerationEvent);
 
                         featurePressure.addFeatureListener(pressureListener);
                         mNode.enableNotification(featurePressure);
                         mNode.readFeature(featurePressure);
-
 
 
                     }
