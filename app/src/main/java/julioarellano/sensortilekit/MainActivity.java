@@ -55,7 +55,8 @@ public class MainActivity extends AppCompatActivity {
         tvPressure = (TextView) (findViewById(R.id.tvPressure));
         final SharedPreferences sharedPreferences = this.getSharedPreferences(this.getResources().getString(R.string.app_name),
                 Context.MODE_PRIVATE);
-
+// gets node from other activities
+        //put this in on resume as well
         String node_tag = sharedPreferences.getString(nodeTag, "");
         mNode = Manager.getSharedInstance().getNodeWithTag(node_tag);
         if (savedInstanceState == null) {
@@ -73,27 +74,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        //featurePedometer = mNode.getFeature(FeaturePedometer.class);
-        //featureCompass = mNode.getFeature(FeatureCompass.class);
-        //featureHumidity = node.getFeature(FeatureHumidity.class);
         featureTemperature = mNode.getFeature(FeatureTemperature.class);
         featureAccelerationEvent = mNode.getFeature(FeatureAccelerationEvent.class);
         featurePressure = mNode.getFeature(FeaturePressure.class);
 
-        mNode.addNodeStateListener(mNodeStatusListener);
+        mNode.addNodeStateListener(mNodeStatusListener);//adds the node
 
 
-        //featurePedometer.addFeatureListener(stepListener);
-
-
-        /*(findViewById(R.id.featureListBtn)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent i = FeatureListActivity.getStartIntent(MainActivity.this, mNode);
-                startActivity(i);
-            }
-        });*/
     }
 
     @Override
@@ -149,14 +136,14 @@ public class MainActivity extends AppCompatActivity {
         public void onUpdate(Feature f, Feature.Sample sample) {
             if (featureTemperature != null) {
                 temperature = featureTemperature.getTemperature(sample);
-                if(i<49){
+                if (i < 49) {
                     array[i] = pressure;
                     i++;
                 }
-                if(i==49){
-                    i=0;
+                if (i == 49) {
+                    i = 0;
                     return;
-                }
+                } //gets samples to graph
                 MainActivity.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -173,13 +160,13 @@ public class MainActivity extends AppCompatActivity {
             if (featurePressure != null) {
                 pressure = featurePressure.getPressure(sample);
                 //if (pressure < 1) {
-                    MainActivity.this.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            tvPressure.setText(String.valueOf(pressure));
-                        }
-                    });
-               // }
+                MainActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        tvPressure.setText(String.valueOf(pressure));
+                    }
+                });
+                // }
 
 
             }

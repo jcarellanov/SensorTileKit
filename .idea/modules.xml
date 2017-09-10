@@ -3,10 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/BlueSTSDK/BlueSTSDK.iml" filepath="$PROJECT_DIR$/BlueSTSDK/BlueSTSDK.iml" />
-      <module fileurl="file://$PROJECT_DIR$/BlueSTSDK/BlueSTSDK.iml" filepath="$PROJECT_DIR$/BlueSTSDK/BlueSTSDK.iml" />
       <module fileurl="file://$PROJECT_DIR$/SensorTileKit.iml" filepath="$PROJECT_DIR$/SensorTileKit.iml" />
-      <module fileurl="file://$PROJECT_DIR$/SensorTileKit.iml" filepath="$PROJECT_DIR$/SensorTileKit.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
